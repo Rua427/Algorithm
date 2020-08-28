@@ -22,6 +22,7 @@ import sys
 
 # test case
 T = int(input())
+result = []
 for i in range(T):
     # N = 건물 수, K = 건물 짓는 순서 규칙의 개수
     N, K = map(int, sys.stdin.readline().split())
@@ -34,8 +35,8 @@ for i in range(T):
 	
     for ii in range(K):
 	    X, Y = map(int, sys.stdin.readline().split())
-	    build[Y-1][X-1] = True
-	    table[X-1] += 1
+	    build[X-1][Y-1] = True
+	    table[Y-1] += 1
 
     # W = 최종적으로 지어야 하는 건물
     W = int(input())
@@ -43,57 +44,51 @@ for i in range(T):
     
     order = []
     t = 0
+    queue = []
+    queueTime = []
+    chk = False
     # 위상 정렬 Topological Sort Algorithm
     while(True):
-        queue = []
-        m = 0
     	# Push in Queue
-        
-
-        chk = False
+        m = []
         for ii in range(N):
             if(table[ii] == 0):
-                chk = True
                 queue.append(ii)
+                queueTime.append(D[ii])
                 table[ii] = -1
+                if(ii == W-1):
+                    chk = True
+				
 
-				# 큐에 입력되는 데이터 중 가장 긴 시간을 구함
-                if(m < D[ii] + t):
-                    m = D[ii]
-        
-        if(not chk):
+              # 큐에 입력되는 데이터 중 가장 짧은 시간을 구함
+        m = queueTime.copy()
+        m.sort()
+        t += m[0]
+        if(chk):
             break
+
+        for ii in range(len(queueTime)):
+            queueTime[ii] -= m[0]
+            if(queueTime[ii] == 0):
+                order.append(queue[ii])
+                queueTime[ii] = -1
+                for n in range(N):
+                    if(build[queue[ii]][n] == True):
+                        build[queue[ii]][n] = False
+                        table[n] -= 1
+                
+
+        while -1 in queueTime:
+            queueTime.remove(-1)
+        for ii in order:
+            try:
+                queue.remove(ii)
+            except:
+                pass
         
-
-		# 큐에 지어야 할 건물이 있는지 확인해서 있으면 t값 더함
-		# t+=queue.index(W-1) 는 오류 발생 가능성이 있으므로 예외처리로 진행
         
-        try:
-            if(queue.index(W-1) >= 0):
-                tempQueue = queue
-                for q in range(len(queue) -1):
-                    if(queue[q] != W-1):
-                        del tempQueue[q]
-                queue = tempQueue
+    result.append(str(t))
 
-
-                findW = True
-                t += D[W-1]
-                m = 0
-
-		# 오류 발생한다는 것은 큐에 지어야 할 건물이 없다는 것
-        except:
-            pass
-        
-        if(findW):
-            t += m
-
-        for q in queue:
-            order.append(q)
-            for ii in range(N):
-                if(build[q][ii] == True):
-                    build[q][ii] = False
-                    table[ii] -= 1
-    
-    sys.stdout.write(str(t) + '\n')
+for r in result:
+    sys.stdout.write(r + '\n')
  
