@@ -48,38 +48,34 @@ for i in range(T):
     queueTime = []
     chk = False
     # 위상 정렬 Topological Sort Algorithm
-    while(True):
+    while (W-1) not in order:
     	# Push in Queue
         m = []
         for ii in range(N):
-            if(table[ii] == 0):
+            if(table[ii] == 0 and not chk):
                 queue.append(ii)
                 queueTime.append(D[ii])
                 table[ii] = -1
                 if(ii == W-1):
                     chk = True
 				
-
-              # 큐에 입력되는 데이터 중 가장 짧은 시간을 구함
+        
+        # 큐에 입력되는 데이터 중 가장 짧은 시간을 구함
         m = queueTime.copy()
         m.sort()
-        t += m[0]
-        if(chk):
-            break
 
         for ii in range(len(queueTime)):
             queueTime[ii] -= m[0]
             if(queueTime[ii] == 0):
                 order.append(queue[ii])
-                queueTime[ii] = -1
                 for n in range(N):
                     if(build[queue[ii]][n] == True):
                         build[queue[ii]][n] = False
                         table[n] -= 1
-                
+        t += m[0]
 
-        while -1 in queueTime:
-            queueTime.remove(-1)
+        while 0 in queueTime:
+            queueTime.remove(0)
         for ii in order:
             try:
                 queue.remove(ii)
