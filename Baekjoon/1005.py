@@ -63,7 +63,8 @@ for i in range(T):
         # 큐에 입력되는 데이터 중 가장 짧은 시간을 구함
         m = queueTime.copy()
         m.sort()
-
+	
+	# 해당 시간만큼 흐른후
         for ii in range(len(queueTime)):
             queueTime[ii] -= m[0]
             if(queueTime[ii] == 0):
