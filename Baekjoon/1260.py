@@ -3,7 +3,7 @@ import sys
 N, M, V = map(int, sys.stdin.readline().split())
 
 table = [[False for _ in range(N+1)] for _ in range(N+1)]
-
+table2 = [[False for _ in range(N+1)] for _ in range(N+1)]
 
 visited = [False for _ in range(N+1)]
 visited[V] = True
@@ -16,28 +16,43 @@ search2 = search.copy()
 for _ in range(M):
     n1, n2 = map(int, sys.stdin.readline().split())
     table[n1][n2] = True
-table2 = table.copy()
+    table[n2][n1] = True
+    table2[n1][n2] = True
+    table2[n2][n1] = True
 
-for s in range(N+1):
-    if(s == 0):
-        s = V
+stack = []
+stack.append(V)
+
+while(len(stack) > 0):
     for e in range(1, N+1):
-        if(table[s][e] == True and not visited[e]):
-            table[s][e] = False
+        if(table[stack[-1]][e] == True and not visited[e]):
+            stack.append(e)
             search.append(e)
+            table[stack[-1]][e] = False
             visited[e] = True
-            s = e
             break
+        if(e == N):
+            del stack[-1]
 
-for s in range(N+1):
-    if(s == 0):
-        s = V
+queue = []
+queue.append(V)
+
+while(len(queue) > 0):
     for e in range(1, N+1):
-        if(table[s][e] == True and not visited[e]):
-            table[s][e] = False
-            search.append(e)
-            visited[e] = True
-            s = e
-            break
+        if(table2[queue[0]][e] == True and not visited2[e]):
+            queue.append(e)
+            search2.append(e)
+            table2[queue[0]][e] = False
+            visited2[e] = True
+        if(e == N):
+            del queue[0]
 
-sys.stdout.write(str(search))
+            
+for i in search:
+    sys.stdout.write(str(i) + " ")
+
+sys.stdout.write("\n")
+        
+for i in search2:
+    sys.stdout.write(str(i) + " ")
+
