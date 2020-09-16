@@ -6,8 +6,6 @@ l = []
 
 for _ in range(N):
     l.append(int(sys.stdin.readline()))
-
-
 def Swap(left, right):
     temp = left
     left = right
@@ -16,33 +14,31 @@ def Swap(left, right):
     return left, right
     
 
-def Sorting(left, right):
-    pivot = l[left]
-    low = left
-    high = right
-
-    while(low < high):
-        while(l[low] < pivot and low < right):
-            low += 1
-        while(l[high] > pivot and high > left):
-            high -= 1
-        if(low < high):
-            l[low], l[high] = Swap(l[low], l[high])
-
-    if(low > high):
-        l[left], l[high] = Swap(l[left], l[high])
-        return high
+def Sorting(start, end):
+    pivot = l[(start + end) // 2]
+    left = start
+    right = end
+    while(left < right):
+        while(l[left] < pivot and left < right):
+            left += 1
+        while(l[right] > pivot):    
+            right -= 1
+        
+        if(left < right):
+            l[left], l[right] = Swap(l[left], l[right])
+    return right   
     
 
+def QuickSort(start, end):
+    if (start >= end):
+        return
 
-def QuickSort(left, right):
-    if(left < right):
-        pivot = Sorting(left, right)
-        QuickSort(left, pivot-1)
-        QuickSort(pivot+1, right)
+    pivot = Sorting(start, end)
+    QuickSort(start, pivot-1)
+    QuickSort(pivot+1, end)
 
 
 QuickSort(0, len(l)-1)
 
-for i in l:
-    sys.stdout.write(str(i) + "\n")
+for i in range(len(l)):
+    sys.stdout.write(str(l[i]) + "\n")
