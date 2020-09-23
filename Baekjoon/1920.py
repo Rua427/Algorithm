@@ -11,14 +11,14 @@ M = int(sys.stdin.readline())
 B = [0 for _ in range(N)]
 B[0:] = list(map(int, sys.stdin.readline().split()))
 
-left = 0
-right = N - 1
 
-index = (left + right) // 2
 
 result = []
-
 for b in range(len(B)):
+    left = 0
+    right = N - 1
+    index = (left + right) // 2
+
     while(left <= right):
         if(A[index] == B[b]):
             result.append("1")
