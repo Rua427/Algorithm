@@ -14,21 +14,23 @@ distance = [11 for _ in range(V)]
 distance[start - 1] = 0
 select = start-1
 
+isSelected = [False for _ in range(V)]
+isSelected[select] = True
 
-
-
+short = []
 while True:
-    short = []
     for i in node[select]:
         distance[i[0]] = min(distance[select] + i[1], distance[i[0]])
+         
         short.append([i[0], distance[i[0]]])
-
+    
     if(len(short) == 0):
         break
 
-    short = sorted(short, key = lambda x : x[1])
+    short = sorted(short, key = lambda x : (x[1], x[0]))
     select = short[0][0]
-
+    isSelected[select] = True
+    del short[0]
 
 for i in distance:
     if(i == 11):
