@@ -1,7 +1,7 @@
 import sys
-
+from heapq import heappush, heappop
 V, E = map(int, sys.stdin.readline().split())
-
+inf = 100000000
 start = int(sys.stdin.readline())
 
 node = [[] for _ in range(V)]
@@ -10,30 +10,23 @@ for _ in range(E):
     u, v, w = map(int, sys.stdin.readline().split())
     node[u-1].append([v-1, w])
 
-distance = [11 for _ in range(V)]
+distance = [inf] * V
 distance[start - 1] = 0
 select = start-1
 
-isSelected = [False for _ in range(V)]
-isSelected[select] = True
+heap = []
+heappush(heap, [distance[select], select])
 
-short = []
-while True:
-    for i in node[select]:
-        distance[i[0]] = min(distance[select] + i[1], distance[i[0]])
-         
-        short.append([i[0], distance[i[0]]])
-    
-    if(len(short) == 0):
-        break
-
-    short = sorted(short, key = lambda x : (x[1], x[0]))
-    select = short[0][0]
-    isSelected[select] = True
-    del short[0]
+while heap:
+    w, n = heappop(heap)
+    for _n, _w in node[n]:
+        newW = w + _w
+        if(distance[_n] > newW):
+            distance[_n] = newW
+            heappush(heap, [newW, _n])
 
 for i in distance:
-    if(i == 11):
-        sys.stdout.write(str("INF\n"))
+    if(i == inf):
+        print("INF")
     else:
-        sys.stdout.write(str(i)+"\n")
+        print(i)
