@@ -14,3 +14,5 @@ for i in range(2, int(m) + 1):
 
 if(N != 1):
     sys.stdout.write(str(N) + "\n")
+
+    
