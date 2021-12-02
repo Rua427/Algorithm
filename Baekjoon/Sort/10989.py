@@ -5,6 +5,7 @@ N = int(sys.stdin.readline())
 numbers = []
 count = [0] * 10001
 
+
 for _ in range(N):
     num = int(sys.stdin.readline())
 
