@@ -41,6 +41,7 @@ string Minus(string a, string b, bool minus = false) {
 		return res.insert(0, string("0"));
 	}
 
+	// B > A -> (B - A) *-1
 	if (b.size() > a.size()) {
 		minus = true;
 
@@ -49,19 +50,15 @@ string Minus(string a, string b, bool minus = false) {
 		b = a;
 		a = temp;
 	}
+	// B > A -> (B - A) *-1
+	else if (a.size() == b.size()) {
+		if (NUM(a[0]) < NUM(b[0])) {
+			minus = true;
 
-	else if (a.size() == b.size()){
-		for (int i = 0; i < a.size(); i++)
-		{
-			if (NUM(a[i]) < NUM(b[i])) {
-				minus = true;
-
-				string temp;
-				temp = b;
-				b = a;
-				a = temp;
-				break;
-			}
+			string temp;
+			temp = b;
+			b = a;
+			a = temp;
 		}
 	}
 
@@ -130,11 +127,16 @@ string Multi(string a, string b, bool minus = false) {
 	string res= "0";
 	string temp2 = "0";
 
+	if (a[0] == '0' || b[0] == '0') {
+		return res;
+	}
+
 	int num = 0;
 	int up = 0;
 	for (int B = 1; B <= b.size(); B++)
 	{
 		string temp;
+		up = 0;
 		for (int A = 1; A <= a.size(); A++)
 		{
 			num = NUM(a[a.size() - A]) * NUM(b[b.size() - B]) + up;
@@ -142,6 +144,9 @@ string Multi(string a, string b, bool minus = false) {
 			up = num / 10;
 			char t = char((num % 10) + 48);
 			temp.insert(0, string(1, t));
+		}
+		if (up > 0) {
+			temp.insert(0, string(1, char(up + '0')));
 		}
 		for (int i = 1; i < B; i++)
 		{
@@ -170,6 +175,7 @@ int main(int argc, char* argv[])
 
 	cin >> _a;
 	cin >> _b;
+
 
 
 	if (_a[0] == '-' && _b[0] == '-') {
