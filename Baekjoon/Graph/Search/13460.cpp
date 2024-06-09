@@ -1,7 +1,6 @@
 #include <iostream>
 #include <queue>
 #include <list>
-
 using namespace std;
 
 struct Position
@@ -19,7 +18,7 @@ struct Position
         y = _y;
     }
 
-    bool operator==(const Position &other) const
+    bool operator==(const Position& other) const
     {
         return (x == other.x && y == other.y);
     }
@@ -45,13 +44,13 @@ struct Board
 
 char map[11][11];
 
-int dx[4] = {-1, 1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
+int dx[4] = { -1, 1, 0, 0 };
+int dy[4] = { 0, 0, 1, -1 };
 
-void Move(Position &pos, int &dist, int idx)
+void Move(Position& pos, int& dist, int idx)
 {
     while (map[pos.y + dy[idx]][pos.x + dx[idx]] != '#' &&
-           map[pos.y][pos.x] != 'O')
+        map[pos.y][pos.x] != 'O')
     {
         pos.y += dy[idx];
         pos.x += dx[idx];
@@ -62,7 +61,7 @@ void Move(Position &pos, int &dist, int idx)
 int BFS(Bead beads[2])
 {
     queue<Board> q;
-    q.push({beads[0], beads[1], 0});
+    q.push({ beads[0], beads[1], 0 });
 
     while (!q.empty())
     {
@@ -97,14 +96,14 @@ int BFS(Bead beads[2])
                     red.p.x -= dx[i], red.p.y -= dy[i];
             }
             // 이동한 곳이 이전이랑 같을때
-            if (red.p == red.back || blue.p == blue.back)
+            if (red.p == red.back && blue.p == blue.back)
                 continue;
 
             // 이동하기 전 좌표를 저장
             red.back = current.beads[0].p;
             blue.back = current.beads[1].p;
 
-            q.push({red, blue, ncount});
+            q.push({ red, blue, ncount });
         }
     }
 
@@ -117,8 +116,8 @@ int main()
 
     cin >> N >> M;
 
-    int rx, ry;
-    int bx, by;
+    Position r;
+    Position b;
     for (int n = 1; n <= N; n++)
     {
         for (int m = 1; m <= M; m++)
@@ -127,18 +126,18 @@ int main()
 
             if (map[n][m] == 'R')
             {
-                rx = m;
-                ry = n;
+                r.x = m;
+                r.y = n;
             }
             else if (map[n][m] == 'B')
             {
-                bx = m;
-                by = n;
+                b.x = m;
+                b.y = n;
             }
         }
     }
 
-    Bead beads[2] = {{Position(rx, ry), Position()}, {Position(bx, by), Position()}};
+    Bead beads[2] = { {r, Position()}, {b, Position()} };
     int res = BFS(beads);
     cout << res;
     return 0;
