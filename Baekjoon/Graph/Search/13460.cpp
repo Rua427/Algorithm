@@ -18,7 +18,7 @@ struct Position
         y = _y;
     }
 
-    bool operator==(const Position& other) const
+    bool operator==(const Position &other) const
     {
         return (x == other.x && y == other.y);
     }
@@ -44,13 +44,13 @@ struct Board
 
 char map[11][11];
 
-int dx[4] = { -1, 1, 0, 0 };
-int dy[4] = { 0, 0, 1, -1 };
+int dx[4] = {-1, 1, 0, 0};
+int dy[4] = {0, 0, 1, -1};
 
-void Move(Position& pos, int& dist, int idx)
+void Move(Position &pos, int &dist, int idx)
 {
     while (map[pos.y + dy[idx]][pos.x + dx[idx]] != '#' &&
-        map[pos.y][pos.x] != 'O')
+           map[pos.y][pos.x] != 'O')
     {
         pos.y += dy[idx];
         pos.x += dx[idx];
@@ -61,7 +61,7 @@ void Move(Position& pos, int& dist, int idx)
 int BFS(Bead beads[2])
 {
     queue<Board> q;
-    q.push({ beads[0], beads[1], 0 });
+    q.push({beads[0], beads[1], 0});
 
     while (!q.empty())
     {
@@ -103,14 +103,14 @@ int BFS(Bead beads[2])
             red.back = current.beads[0].p;
             blue.back = current.beads[1].p;
 
-            q.push({ red, blue, ncount });
+            q.push({red, blue, ncount});
         }
     }
 
     return -1;
 }
 
-int main()
+int main(int argc, char **argv)
 {
     int N, M;
 
@@ -137,7 +137,7 @@ int main()
         }
     }
 
-    Bead beads[2] = { {r, Position()}, {b, Position()} };
+    Bead beads[2] = {{r, Position()}, {b, Position()}};
     int res = BFS(beads);
     cout << res;
     return 0;
