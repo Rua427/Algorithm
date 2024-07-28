@@ -9,6 +9,15 @@
             "args": [],
             "cwd": "${fileDirname}",
             "preLaunchTask": "C/C++: clang++ 활성 파일 빌드"
+        },
+        {
+            "name": "C/C++: g++ 활성 파일 빌드 및 디버그",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.gpp",
+            "args": [],
+            "cwd": "${fileDirname}",
+            "preLaunchTask": "C/C++: g++ 활성 파일 빌드"
         }
     ]
 }

@@ -3,6 +3,7 @@
         "*.json": "json",
         "*.project": "xml",
         "*.sheet": "xml",
-        "list": "cpp"
+        "list": "cpp",
+        "__locale": "cpp"
     }
 }
