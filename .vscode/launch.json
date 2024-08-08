@@ -1,23 +1,23 @@
 {
     "version": "0.2.0",
     "configurations": [
-        // {
-        //     "name": "C/C++: clang++ 활성 파일 빌드 및 디버그",
-        //     "type": "lldb",
-        //     "request": "launch",
-        //     "program": "${fileDirname}/${fileBasenameNoExtension}.o",
-        //     "args": [],
-        //     "cwd": "${fileDirname}",
-        //     "preLaunchTask": "C/C++: clang++ 활성 파일 빌드"
-        // },
         {
-            "name": "C/C++: g++ 활성 파일 빌드 및 디버그",
+            "name": "C/C++: clang++ 활성 파일 빌드 및 디버그",
             "type": "lldb",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}.gpp",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.o",
             "args": [],
             "cwd": "${fileDirname}",
-            "preLaunchTask": "C/C++: g++ 활성 파일 빌드"
-        }
+            "preLaunchTask": "C/C++: clang++ 활성 파일 빌드"
+        },
+        // {
+        //     "name": "C/C++: g++ 활성 파일 빌드 및 디버그",
+        //     "type": "lldb",
+        //     "request": "launch",
+        //     "program": "${fileDirname}/${fileBasenameNoExtension}.gpp",
+        //     "args": [],
+        //     "cwd": "${fileDirname}",
+        //     "preLaunchTask": "C/C++: g++ 활성 파일 빌드"
+        // }
     ]
 }
