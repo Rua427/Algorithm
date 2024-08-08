@@ -137,14 +137,14 @@ int main()
         {
             cin >> map[y][x];
 
+            if (map[y][x] == 'X')
+                continue;
+
             if (map[y][x] == 'L')
                 swan.push({x, y});
 
             // 각 호수 구역
             if (map[y - 1][x] == '.' || map[y - 1][x] == 'L' || map[y][x - 1] == '.' || map[y][x - 1] == 'L')
-                continue;
-
-            if (map[y][x] != '.')
                 continue;
 
             water.push({x, y});
