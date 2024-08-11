@@ -36,8 +36,8 @@ int main()
 {
     cin >> N >> K;
 
-    long long A = Factorial(N - K + 1, N) % P;
-    long long B = Factorial(1, K) % P;
+    long long A = Factorial(1, N) % P;
+    long long B = Factorial(1, N - K) * Factorial(1, K) % P;
     long long result = A * Power(B, P - 2) % P;
     cout << result;
 
